@@ -19,7 +19,7 @@ seir <- function(n=5.5e6,ne=10,nt=150,gamma=1/3,delta=1/5) {
     u <- runif(n) ## uniform random deviates
     x[x==2&u<delta] <- 3 ## I -> R with prob delta 
     x[x==1&u<gamma] <- 2 ## E -> I with prob gamma 
-    x[x==0&u<lamb*beta*sum(beta[x==2])] <- 1
+    x[x==0&u<lamb*beta*sum(beta[x==2])] <- 1 ## S -> E with prob lamb*beta.j*sum(beta.i) 
     S[i] <- sum(x==0); E[i] <- sum(x==1)
     I[i] <- sum(x==2); R[i] <- sum(x==3)
   }
