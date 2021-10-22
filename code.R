@@ -1,6 +1,6 @@
 set.seed(2)
 
-seir <- function(n=5.5e6,ne=10,nt=100,gamma=1/3,delta=1/5) {
+seir <- function(n=100000,ne=10,nt=100,gamma=1/3,delta=1/5) {
   ## SEIR stochastic simulation model.
   ## n: population size; ne: initially exposed; nt: number of days 
   ## beta: daily prob S -> E parameter; lamb: daily prob S -> E parameter
@@ -33,6 +33,12 @@ seir <- function(n=5.5e6,ne=10,nt=100,gamma=1/3,delta=1/5) {
   prob_I <- I/n
   prob_low_beta <- beta_low/(0.1*n)
   prob_sample <- sample_0.1/(0.001*n)
+  result = list(prob_I,prob_low_beta,prob_sample)
+  list(S=S,E=E,I=I,R=R,beta=beta)
+  return(result)
+} ## seir
+
+simulation_plot <- function(prob_I,prob_low_beta,prob_sample) {
   # a,b,c represent the day when the infected proportion peaks
   a = which(prob_I == max(prob_I))
   b = which(prob_low_beta == max(prob_low_beta))
@@ -52,12 +58,48 @@ seir <- function(n=5.5e6,ne=10,nt=100,gamma=1/3,delta=1/5) {
   legend(0,0.3,"whole population infection proportion",fill = 'orange',col = 'orange')
   legend(0,0.25,"proportion in 10% lowest beta",fill = 'blue',col = 'blue')
   legend(0,0.2,"proportion in 0.1% randomly sample",fill = 'red',col = 'red')
-  # show the transformation of population at each state
-  list(S=S,E=E,I=I,R=R,beta=beta)
-} ## seir
+}
+outcome = seir()
+par(new = FALSE)
+simulation_plot(outcome[[1]],outcome[[2]],outcome[[3]])
 
 # simulate the process for ten times
+prob = list()
+prob_I = matrix(rep(0,1000),nrow = 10)
+prob_low_beta = matrix(rep(0,1000),nrow = 10)
+prob_sample = matrix(rep(0,1000),nrow = 10)
 for (i in c(1:10)){
-  seir()
+  a = seir()
+  prob = c(prob,a)
 }
 
+# store the proportion of each group of people
+nt = length(prob)
+for(i in 1:nt){
+  if((i+2)%%3 == 0){
+    prob_I[(i+2)/3,] = prob[[i]]
+  }
+  else if((i+1)%%3 == 0){
+    prob_low_beta[(i+1)/3,] = prob[[i]]
+  }
+  else{
+    prob_sample[i/3,] = prob[[i]]
+  }
+}
+
+# draw the pictures of three groups
+day = c(1:100)
+for(i in 1:10){
+  plot(day,prob_I[i,],ylim = c(0,0.3),main = '10 times of simulation of proportion with the whole population', ylab = 'proportion')
+  par(new = TRUE)
+}
+par(new = FALSE)
+for(i in 1:10){
+  plot(day,prob_low_beta[i,],ylim = c(0,0.3),main = '10 times of simulation of proportion with the people of the lowest beta', ylab = 'proportion')
+  par(new = TRUE)
+}
+par(new = FALSE)
+for(i in 1:10){
+  plot(day,prob_sample[i,],ylim = c(0,0.3),main = '10 times of simulation of proportion with the sample', ylab = 'proportion')
+  par(new = TRUE)
+}
