@@ -11,7 +11,7 @@ Sharpening this question as follows:
 
 Simulations visualise and reveals the hazards of this opportunistic sampling that may be explained by self-selective bias or biased sampling.
 
-# Model employed
+## Model employed
 SEIR
 
 ## Files
