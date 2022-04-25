@@ -6,6 +6,6 @@ What might that mean about the representativeness of symptom onset trajectories 
 
 Sharpening this question as follows: 
 
-### what do the daily infection trajectories look like 1 for the 10% (say) of the population with the lowest individual transmission probabilities, and how do they compare to the infection trajectories for the whole population?
+**What do the daily infection trajectories look like for the 10% (say) of the population with the lowest individual transmission probabilities, and how do they compare to the infection trajectories for the whole population?**
 
 Simulations visualise and reveals the hazards of this opportunistic sampling that may be explained by self-selective bias or biased sampling.
