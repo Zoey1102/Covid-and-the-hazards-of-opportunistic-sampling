@@ -1,4 +1,4 @@
-# Hzards of opportunistic sampling: evidence from the COVID-19 infections data
+# Hazards of opportunistic sampling: evidence from the COVID-19 infections data
 
 It is highly likely that people who choose to download a Covid symptom tracking app are more concerned about Covid than the average person. In that case they are likely to take more precautions than average to avoid catching or transmitting it. 
 
